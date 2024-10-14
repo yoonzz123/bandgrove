@@ -33,6 +33,4 @@ router.get('/uuid', async (req, res) => {
   }
 });
 
-
-
 export default router;

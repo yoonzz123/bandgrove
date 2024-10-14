@@ -1,10 +1,18 @@
 <script setup>
+
+// router
+import { useRouter, useRoute } from 'vue-router'
+
+// views
 import Navbar from '../Navbar.vue'
 import Logo from '@/assets/images/logo4.svg'
-import { useRouter, useRoute } from 'vue-router'
+
+// store
+import { useLoginStore } from '@/stores/loginStore.js'
 
 const router = useRouter();
 const route = useRoute();
+const loginStore = useLoginStore();
 
 let menus = [
   {to:'/',      title:'home'},
@@ -15,9 +23,9 @@ let menus = [
 const goHomePage = () => router.push('/');
 const goMyPage = () => router.push('/myPage');
 const goSettingPage = () => router.push('/settingPage');
-const goLogoutPage = () => {
-  console.log("로그아웃 기능 빨리 구현해~~")
-}
+
+const btnLogout = () => loginStore.logout()
+const btnLogin = () => loginStore.login()
 
 </script>
 <template>
@@ -60,10 +68,17 @@ const goLogoutPage = () => {
           @click="goSettingPage"
         ></v-btn>
         <v-btn 
-          icon="mdi-logout"
+          v-if="loginStore.isLogin"
+          prepend-icon="mdi-logout"
           variant="text"
-          @click="goLogoutPage"
-        ></v-btn>
+          @click="btnLogout"
+        >로그아웃</v-btn>
+        <v-btn 
+          v-else-if="!loginStore.isLogin"
+          prepend-icon="mdi-login"
+          variant="text"
+          @click="btnLogin"
+        >로그인</v-btn>
       </v-col>
     </v-row>
     

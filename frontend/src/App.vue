@@ -1,12 +1,22 @@
 <script setup>
+// components
 import Header from '@/views/layout/Header.vue';
-import Navbar from '@/views/Navbar.vue';
 import Footer from "@/views/layout/Footer.vue";
+import Navbar from '@/views/Navbar.vue';
 
+import LoginPage from '@/views/LoginPage.vue';
+
+// stores
+import { useLoginStore } from '@/stores/loginStore.js'
+
+let loginStore = useLoginStore();
 </script>
 
 <template>
-  <v-app fluid ref="app">
+  <v-app v-if="loginStore.isLogin">
+    <LoginPage />
+  </v-app>
+  <v-app v-else fluid ref="app">
     <v-header>
       <Header/>
     </v-header>
